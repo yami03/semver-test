@@ -11,8 +11,8 @@ describe('npm-semver functions test', () => {
     expect(semver.inc('1.2.3-alpha.2', 'major')).toEqual('2.0.0');
     expect(semver.inc('1.2.3-alpha.2', 'premajor')).toEqual('2.0.0-0');
     expect(semver.inc('1.2.3', 'minor')).toEqual('1.3.0');
-    expect(semver.inc('3.27.2-alpha.2.2.3', 'prepatch')).toEqual('3.27.3-0');
-    expect(semver.inc('3.27.2-alpha.2.2.3', 'prerelease')).toEqual('3.27.2-alpha.2.2.4');
+    expect(semver.inc('3.27.2-alpha.2', 'prepatch')).toEqual('3.27.3-0');
+    expect(semver.inc('3.27.2-alpha.2', 'prerelease')).toEqual('3.27.2-alpha.3');
   });
 
   test('intersects(r1, r2, loose)는 범위에 허용되는 경우 true를 반환해야 한다.', () => {
@@ -24,7 +24,7 @@ describe('npm-semver functions test', () => {
   });
 
   test('prerelease(v)는 prerelease의 구성요소를 배열로 반환해야하며 없는 경우 null을 반환해야 한다.', () => {
-    expect(semver.prerelease('1.2.3-alpha.2.3.4')).toEqual(['alpha', 2, 3, 4]);
+    expect(semver.prerelease('1.2.3-alpha.2')).toEqual(['alpha', 2]);
     expect(semver.prerelease('1.2.3')).toEqual(null);
   });
 
@@ -37,12 +37,12 @@ describe('npm-semver functions test', () => {
       minor: 2,
       options: { includePrerelease: false, loose: false },
       patch: 3,
-      prerelease: ['alpha', 2, 3, 4],
-      raw: '1.2.3-alpha.2.3.4',
-      version: '1.2.3-alpha.2.3.4',
+      prerelease: ['alpha', 2],
+      raw: '1.2.3-alpha.2',
+      version: '1.2.3-alpha.2',
     };
 
-    expect(semver.parse('1.2.3-alpha.2.3.4')).toEqual(semVerObj);
+    expect(semver.parse('1.2.3-alpha.2')).toEqual(semVerObj);
   });
 
   test('satisfies(version, range)는 버전이 range에 해당된다면 true를 반환해야 한다.', () => {
